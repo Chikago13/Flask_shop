@@ -11,7 +11,9 @@
     </div>
   </header>
 
-  <main>
+  <div class="card-deck mb-3 text-center">
+    {% for el in data%}
+    <main>
     <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
       <div class="col">
         <div class="card mb-4 rounded-3 shadow-sm">
@@ -122,6 +124,10 @@
       </table>
     </div>
   </main>
+    {% endfor%}
+  </div>
+
+
 {% endblock %}
 
 
