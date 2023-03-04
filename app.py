@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 app.app_context().push()
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///shop.db'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 
@@ -14,6 +15,9 @@ class Item(db.Model):
     description = db.Column(db.Text, nullable=False)
     isActive = db.Column(db.Boolean, default=True)
     # text = db.Column(db.Text, nullable=False)
+
+    def __repr__(self):
+        return self.title
 
 @app.route('/')
 def index():
