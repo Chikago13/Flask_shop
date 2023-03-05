@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
+from cloudipsp import Api, Checkout
+
 
 app = Flask(__name__)
 app.app_context().push()
@@ -17,6 +19,20 @@ class Item(db.Model):
 
     def __repr__(self):
         return self.title
+
+@app.route('/money/<int:id>')
+def item_money(id):
+    item = Item.query.get(id)
+    api = Api(merchant_id=1396424,
+              secret_key='test')
+    checkout = Checkout(api=api)
+    data = {
+        "currency": "RUB",
+        "amount": str(item.price)
+    }
+    url = checkout.url(data).get('checkout_url')
+    return redirect(url)
+
 
 @app.route('/')
 def index():
